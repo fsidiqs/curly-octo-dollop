@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "b1219ffd-eefe-496e-b1fe-ed2e420079be",
+		"name": "TEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Palindrome Possibilites",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/test/soal_0?input=1 10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"soal_0"
+					],
+					"query": [
+						{
+							"key": "input",
+							"value": "1 10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sorted Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/test/soal_1?input=3A13 5X19 9Y20 2C18 1N20 3N20 1M21 1F14 9A21 3N21 0E13 5G14 8A23 9E22 3N14",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"soal_1"
+					],
+					"query": [
+						{
+							"key": "input",
+							"value": "3A13 5X19 9Y20 2C18 1N20 3N20 1M21 1F14 9A21 3N21 0E13 5G14 8A23 9E22 3N14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Missing Number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/test/soal_2?input=100001100002100003100004100006",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"soal_2"
+					],
+					"query": [
+						{
+							"key": "input",
+							"value": "100001100002100003100004100006"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -11,15 +11,21 @@ import (
 	"text/template"
 )
 
+// successResponse define the response when the service run successfully
 var successResponse struct {
 	Status int
 	Input  string
 	Result interface{}
 }
 
+// errorResponse define the response when the service returns an error
 var errorResponse struct {
 	Status  int
 	Message string
+}
+
+type serviceable interface {
+	RunService(string) (interface{}, error)
 }
 
 func init() {
@@ -30,6 +36,7 @@ func init() {
 func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/test/", serviceHandler)
+	fmt.Println("Server started at port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
@@ -44,20 +51,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func serviceHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
-
+	// fetchin the input query param, and making sure it is sent using GET method
 	if _, ok := query["input"]; ok && r.Method == "GET" {
-		var err error
-		var data interface{}
 		input := query["input"][0]
-		if r.URL.Path == "/test/soal_0" {
+		// run the service
+		data, err := serviceImpl(r.URL.Path, input)
 
-			data, err = palindrome.CountPalindromePossibilities(input)
-		} else if r.URL.Path == "/test/soal_1" {
-			data, err = book.ParseAndGetSortedBooks(input)
-		} else if r.URL.Path == "/test/soal_2" {
-			data, err = missingnumber.FindMissingNumber(input)
-		}
-
+		// when error occurs
 		if err != nil {
 			errorResponse.Message = err.Error()
 			json, _ := json.Marshal(errorResponse)
@@ -67,6 +67,7 @@ func serviceHandler(w http.ResponseWriter, r *http.Request) {
 
 		successResponse.Input = input
 		successResponse.Result = data
+		// return the data as successResponse
 		json, _ := json.Marshal(successResponse)
 		w.Write(json)
 		return
@@ -75,5 +76,20 @@ func serviceHandler(w http.ResponseWriter, r *http.Request) {
 	errorResponse.Message = "invalid_request"
 	json, _ := json.Marshal(errorResponse)
 	w.Write(json)
+	return
+}
+
+func serviceImpl(urlPath string, input string) (data interface{}, err error) {
+	var service serviceable
+	// each service has method named "RunService"
+	if urlPath == "/test/soal_0" {
+		service = palindrome.Service{}
+	} else if urlPath == "/test/soal_1" {
+		service = book.Service{}
+	} else if urlPath == "/test/soal_2" {
+		service = missingnumber.Service{}
+	}
+	// run the service
+	data, err = service.RunService(input)
 	return
 }

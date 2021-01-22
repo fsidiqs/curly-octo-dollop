@@ -1,0 +1,8 @@
+soal_0:
+localhost:8080/test/soal_0?input=1 10
+
+soal_1:
+localhost:8080/test/soal_1?input=3A13 5X19 9Y20 2C18 1N20 3N20 1M21 1F14 9A21 3N21 0E13 5G14 8A23 9E22 3N14
+
+soal_2:
+localhost:8080/test/soal_2?input=100001100002100003100004100006

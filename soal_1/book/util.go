@@ -70,3 +70,10 @@ func (books Books) toString() string {
 	// join into a string with space as the delimiter
 	return strings.Join(s, " ")
 }
+
+type Service struct {
+}
+
+func (Service) RunService(input string) (interface{}, error) {
+	return ParseAndGetSortedBooks(input)
+}

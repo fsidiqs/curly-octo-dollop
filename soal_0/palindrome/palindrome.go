@@ -40,6 +40,8 @@ func CountPalindromePossibilities(input string) (int, error) {
 			countPalindrome++
 		}
 	}
+
+	// convert to string
 	return countPalindrome, nil
 }
 
@@ -92,4 +94,11 @@ func ParseInput(input string) (*TwoNumbers, error) {
 	}
 
 	return &TwoNumbers{firstNumber, secondNumber}, nil
+}
+
+type Service struct {
+}
+
+func (Service) RunService(input string) (interface{}, error) {
+	return CountPalindromePossibilities(input)
 }

@@ -107,3 +107,10 @@ func FindMissingNumber(input string) (int, error) {
 	}
 	return 0, errors.New("invalid_input")
 }
+
+type Service struct {
+}
+
+func (Service) RunService(input string) (interface{}, error) {
+	return FindMissingNumber(input)
+}
